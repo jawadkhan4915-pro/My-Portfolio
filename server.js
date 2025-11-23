@@ -16,12 +16,25 @@ app.use(express.json());
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
   port: parseInt(process.env.SMTP_PORT),
-  secure: false, // true for 465, false for other ports
+  secure: false,
   auth: {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASS,
   },
+  tls: {
+    rejectUnauthorized: false,
+  },
 });
+
+// const transporter = nodemailer.createTransport({
+//   host: process.env.SMTP_HOST,
+//   port: parseInt(process.env.SMTP_PORT),
+//   secure: false, // true for 465, false for other ports
+//   auth: {
+//     user: process.env.SMTP_USER,
+//     pass: process.env.SMTP_PASS,
+//   },
+// });
 
 // Verify transporter configuration
 transporter.verify((error, success) => {
@@ -39,9 +52,9 @@ app.post('/api/send-email', async (req, res) => {
 
     // Validate input
     if (!name || !email || !message) {
-      return res.status(400).json({ 
-        success: false, 
-        error: 'All fields are required' 
+      return res.status(400).json({
+        success: false,
+        error: 'All fields are required'
       });
     }
 
@@ -70,15 +83,15 @@ app.post('/api/send-email', async (req, res) => {
     // Send email
     await transporter.sendMail(mailOptions);
 
-    res.status(200).json({ 
-      success: true, 
-      message: 'Email sent successfully!' 
+    res.status(200).json({
+      success: true,
+      message: 'Email sent successfully!'
     });
   } catch (error) {
     console.error('Error sending email:', error);
-    res.status(500).json({ 
-      success: false, 
-      error: 'Failed to send email. Please try again later.' 
+    res.status(500).json({
+      success: false,
+      error: 'Failed to send email. Please try again later.'
     });
   }
 });
