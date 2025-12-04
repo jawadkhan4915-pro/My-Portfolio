@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
-export default function Header(){
+export default function Header() {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -14,20 +15,22 @@ export default function Header(){
   return (
     <header className={`header ${scrolled ? 'scrolled' : ''}`}>
       <div className="header-inner">
-        <div className="brand-wrapper">
-          <div className="brand-circle">
-            <span className="brand-letter">J</span>
-          </div>
-          <a href="#hero" className="brand" style={{ textDecoration: 'none' }}>Jawad Khan</a>
-        </div>
-        <nav className="nav">
-          <a href="#about">About</a>
-          <a href="#projects">Projects</a>
-          <a href="#skills">Skills</a>
-          <a href="#experience">Experience</a>
-          <a href="#contact" className="cta">Contact</a>
+        <a href="#" className="brand">Jawad.</a>
+
+        <nav className={`nav ${mobileMenuOpen ? 'mobile-open' : ''}`}>
+          <a href="#hero" onClick={() => setMobileMenuOpen(false)}>Home</a>
+          <a href="#about" onClick={() => setMobileMenuOpen(false)}>About</a>
+          <a href="#skills" onClick={() => setMobileMenuOpen(false)}>Skills</a>
+          <a href="#projects" onClick={() => setMobileMenuOpen(false)}>Projects</a>
+          <a href="#contact" className="cta" onClick={() => setMobileMenuOpen(false)}>Contact Me</a>
         </nav>
-        <button className="mobile-menu" aria-label="menu">☰</button>
+
+        <button
+          className="mobile-menu"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        >
+          {mobileMenuOpen ? '✕' : '☰'}
+        </button>
       </div>
     </header>
   )

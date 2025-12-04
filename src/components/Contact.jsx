@@ -40,7 +40,7 @@ export default function Contact() {
         setStatus({ type: 'error', message: data.error || 'Failed to send message. Please try again.' });
       }
     } catch (error) {
-      setStatus({ type: 'error', message: 'Failed to send message. Please make sure the server is running.' });
+      setStatus({ type: 'error', message: 'Failed to connect to the server. Please ensure the backend is running.' });
     } finally {
       setIsLoading(false);
     }
@@ -48,51 +48,87 @@ export default function Contact() {
 
   return (
     <section id="contact" className="section contact-section">
-      <motion.h2
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-      >
-        Let's Have a Talk
-      </motion.h2>
-      <div className="contact-grid">
-        <form className="contact-form" onSubmit={handleSubmit}>
-          <input 
-            name="name"
-            placeholder="Your name" 
-            value={formData.name}
-            onChange={handleChange}
-            required 
-          />
-          <input 
-            name="email"
-            placeholder="Your email" 
-            type="email" 
-            value={formData.email}
-            onChange={handleChange}
-            required 
-          />
-          <textarea 
-            name="message"
-            placeholder="Message" 
-            value={formData.message}
-            onChange={handleChange}
-            required
-          ></textarea>
-          {status.message && (
-            <div className={`status-message ${status.type}`}>
-              {status.message}
+      <div className="container">
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          Let's Have a Talk
+        </motion.h2>
+        <div className="contact-grid">
+          <motion.form 
+            className="contact-form" 
+            onSubmit={handleSubmit}
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <div className="form-group">
+              <input 
+                name="name"
+                placeholder="Your Name" 
+                value={formData.name}
+                onChange={handleChange}
+                required 
+              />
             </div>
-          )}
-          <button className="btn" type="submit" disabled={isLoading}>
-            {isLoading ? 'Sending...' : 'Send'}
-          </button>
-        </form>
-        <div className="contact-info">
-          <h3>Contact Info</h3>
-          <p>Email: jawad.khan4915@gmail.com</p>
-          <p>Phone: +92 3044707155</p>
+            <div className="form-group">
+              <input 
+                name="email"
+                placeholder="Your Email" 
+                type="email" 
+                value={formData.email}
+                onChange={handleChange}
+                required 
+              />
+            </div>
+            <div className="form-group">
+              <textarea 
+                name="message"
+                placeholder="How can I help you?" 
+                value={formData.message}
+                onChange={handleChange}
+                required
+              ></textarea>
+            </div>
+            
+            {status.message && (
+              <div className={`status-message ${status.type}`}>
+                {status.message}
+              </div>
+            )}
+            
+            <button className="btn" type="submit" disabled={isLoading}>
+              {isLoading ? 'Sending Message...' : 'Send Message'}
+            </button>
+          </motion.form>
+          
+          <motion.div 
+            className="contact-info"
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            <h3>Contact Info</h3>
+            <div className="contact-item">
+              <div className="contact-icon">📧</div>
+              <div>
+                <p style={{ margin: 0, color: 'var(--text-dim)', fontSize: '14px' }}>Email</p>
+                <p style={{ margin: 0, color: 'var(--text-main)' }}>jawad.khan4915@gmail.com</p>
+              </div>
+            </div>
+            <div className="contact-item">
+              <div className="contact-icon">📱</div>
+              <div>
+                <p style={{ margin: 0, color: 'var(--text-dim)', fontSize: '14px' }}>Phone</p>
+                <p style={{ margin: 0, color: 'var(--text-main)' }}>+92 3044707155</p>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>
