@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
+import { API_URL } from '../config'
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -23,7 +24,7 @@ export default function Contact() {
     setStatus({ type: '', message: '' });
 
     try {
-      const response = await fetch('http://localhost:3001/api/send-email', {
+      const response = await fetch(`${API_URL}/api/send-email`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -58,8 +59,8 @@ export default function Contact() {
           Let's Have a Talk
         </motion.h2>
         <div className="contact-grid">
-          <motion.form 
-            className="contact-form" 
+          <motion.form
+            className="contact-form"
             onSubmit={handleSubmit}
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -67,46 +68,46 @@ export default function Contact() {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <div className="form-group">
-              <input 
+              <input
                 name="name"
-                placeholder="Your Name" 
+                placeholder="Your Name"
                 value={formData.name}
                 onChange={handleChange}
-                required 
+                required
               />
             </div>
             <div className="form-group">
-              <input 
+              <input
                 name="email"
-                placeholder="Your Email" 
-                type="email" 
+                placeholder="Your Email"
+                type="email"
                 value={formData.email}
                 onChange={handleChange}
-                required 
+                required
               />
             </div>
             <div className="form-group">
-              <textarea 
+              <textarea
                 name="message"
-                placeholder="How can I help you?" 
+                placeholder="How can I help you?"
                 value={formData.message}
                 onChange={handleChange}
                 required
               ></textarea>
             </div>
-            
+
             {status.message && (
               <div className={`status-message ${status.type}`}>
                 {status.message}
               </div>
             )}
-            
+
             <button className="btn" type="submit" disabled={isLoading}>
               {isLoading ? 'Sending Message...' : 'Send Message'}
             </button>
           </motion.form>
-          
-          <motion.div 
+
+          <motion.div
             className="contact-info"
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}

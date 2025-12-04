@@ -96,6 +96,11 @@ app.post('/api/send-email', async (req, res) => {
   }
 });
 
+// Root endpoint
+app.get('/', (req, res) => {
+  res.send('<h1>Jawad Portfolio API</h1><p>Server is running. POST to /api/send-email to send messages.</p>');
+});
+
 // Health check endpoint
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'Server is running' });
