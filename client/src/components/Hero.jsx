@@ -2,6 +2,12 @@ import React from 'react'
 import { motion } from 'framer-motion'
 
 export default function Hero() {
+  const socialLinks = [
+    { icon: '💼', label: 'LinkedIn', url: 'https://linkedin.com' },
+    { icon: '🐙', label: 'GitHub', url: 'https://github.com' },
+    { icon: '📧', label: 'Email', url: 'mailto:jawadkhan@example.com' },
+  ];
+
   return (
     <section id="hero" className="hero">
       <div className="container">
@@ -46,6 +52,29 @@ export default function Hero() {
                 Download CV <span style={{ marginLeft: '8px' }}>⬇️</span>
               </a>
             </motion.div>
+
+            {/* Social Links */}
+            <motion.div
+              className="hero-social"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 0.5 }}
+            >
+              {socialLinks.map((link, index) => (
+                <motion.a
+                  key={index}
+                  href={link.url}
+                  className="social-link-hero"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.1, y: -3 }}
+                  whileTap={{ scale: 0.95 }}
+                  title={link.label}
+                >
+                  <span>{link.icon}</span>
+                </motion.a>
+              ))}
+            </motion.div>
           </motion.div>
 
           <motion.div
@@ -71,6 +100,19 @@ export default function Hero() {
           </motion.div>
         </div>
       </div>
+
+      {/* Scroll Indicator */}
+      <motion.div
+        className="scroll-indicator"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1, duration: 0.8, repeat: Infinity, repeatType: "reverse" }}
+      >
+        <a href="#about">
+          <span className="scroll-text">Scroll Down</span>
+          <span className="scroll-arrow">↓</span>
+        </a>
+      </motion.div>
     </section>
   )
 }

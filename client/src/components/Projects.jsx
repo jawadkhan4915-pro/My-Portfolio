@@ -23,10 +23,21 @@ export default function Projects() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
+              whileHover={{ y: -8 }}
             >
-              <div>
+              <div className="project-header">
+                <div className="project-icon">📁</div>
+                <div className="project-links">
+                  {project.link && (
+                    <a href={project.link} target="_blank" rel="noopener noreferrer" className="project-link-icon" title="View Project">
+                      🔗
+                    </a>
+                  )}
+                </div>
+              </div>
+              <div className="project-content">
                 <h3>{project.title}</h3>
-                <p>{project.description}</p>
+                <p>{project.desc}</p>
               </div>
               <div className="tags">
                 {project.tags.map((tag, i) => (
